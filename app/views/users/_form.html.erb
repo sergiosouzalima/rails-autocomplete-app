@@ -1,0 +1,34 @@
+<%= form_for(@user) do |f| %>
+ <% if @user.errors.any? %>
+ <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+ <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, id: "user_name" %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+
+  <%= label_tag "Roles" %>
+  <input name="role_ids[]" value="<%= @user.id %>" type="hidden" id="roles" width="300px"></input>
+  </br></br>
+
+ <div class="span8">
+    <h3>Example Code</h3>
+    <pre class="prettyprint linenums" id="code_e1"><ol class="linenums"><li class="L0"><span class="tag">&lt;head&gt;</span></li><li class="L3"><span class="pln"> </span><span class="tag">&lt;script&gt;</span></li><li class="L4"><span class="pln"> $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> $</span><span class="pun">(</span><span class="str">"#e1"</span><span class="pun">).</span><span class="pln">select2</span><span class="pun">();</span><span class="pln"> </span><span class="pun">});</span></li><li class="L5"><span class="pln"> </span><span class="tag">&lt;/script&gt;</span></li><li class="L6"><span class="tag">&lt;/head&gt;</span></li><li class="L7"><span class="tag">&lt;body&gt;</span></li><li class="L8"><span class="pln"> </span><span class="tag">&lt;select</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"e1"</span><span class="tag">&gt;</span></li><li class="L9"><span class="pln"> </span><span class="tag">&lt;option</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"AL"</span><span class="tag">&gt;</span><span class="pln">Alabama</span><span class="tag">&lt;/option&gt;</span></li><li class="L1"><span class="pln"> </span><span class="tag">&lt;option</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"WY"</span><span class="tag">&gt;</span><span class="pln">Wyoming</span><span class="tag">&lt;/option&gt;</span></li><li class="L2"><span class="pln"> </span><span class="tag">&lt;/select&gt;</span></li><li class="L3"><span class="tag">&lt;/body&gt;</span></li></ol></pre>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
