@@ -18,9 +18,13 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+  <!--
+  <input id="roles" type="hidden" value="<%#= @user.roles.pluck(:id).to_s.gsub(/[\[\]]/,'') %>" name="role_ids[]" width="300px"></input>
+  -->
 
   <%= label_tag "Roles" %>
-  <input name="role_ids[]" value="<%= @user.id %>" type="hidden" id="roles" width="300px"></input>
+  <input id="userId" type="hidden" value="<%= @user.id %>"></input>
+  <input id="roles" type="hidden" value="-" name="role_ids[]" width="300px"></input>
   </br></br>
 
  <div class="span8">

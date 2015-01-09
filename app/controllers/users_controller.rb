@@ -42,7 +42,9 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new( user_params.merge( "role_ids" => params[ :role_ids ][0].split(",") ) )
+    p = params[:role_ids][0].gsub("-,","").gsub("-","")
+    #@user = User.new( user_params.merge( "role_ids" => params[ :role_ids ][0].split(",") ) )
+    @user = User.new( user_params.merge( "role_ids" => p.split(",") ) )
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -59,13 +61,15 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       #require 'pry'; binding.pry
-      if params[:role_ids][0].include? ","
-        p = params[:role_ids][0].slice(params[:role_ids][0].index(",")+1..-1)
-        p = p.split(",")
-      else
-        p = []
-      end
-      if @user.update(user_params.merge( "role_ids" => p ) )
+      #@user = User.new( user_params.merge( "role_ids" => params[ :role_ids ][0].split(",") ) )
+      #if params[:role_ids][0].include? ","
+      #  p = params[:role_ids][0].slice(params[:role_ids][0].index(",")+1..-1)
+      #  p = p.split(",")
+      #else
+      #  p = []
+      #end
+      p = params[:role_ids][0].gsub("-,","").gsub("-","")
+      if @user.update(user_params.merge( "role_ids" => p.split(",") ) )
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else

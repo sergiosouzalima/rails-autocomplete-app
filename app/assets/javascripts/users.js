@@ -1,4 +1,4 @@
-$(document).on('page:change', function() {
+/*$(document).on('page:change', function() {
   $("#e11").select2({
     placeholder: "pesquisa...",
     minimumInputLength: 2,
@@ -25,3 +25,4 @@ $(document).on('page:change', function() {
     }
   });
 });
+*/

@@ -6,7 +6,8 @@ $(document).on('page:change', function() {
     width: "300px",
     //data:[],
     initSelection : function (element, callback) {
-      var id=$(element).val();
+      var id=$('#userId').val();
+      //alert($('selection_values_param"))
       if (id !== "") {
         $.ajax("/user_roles_search/" + id).done(function(data) {
           callback(data);
