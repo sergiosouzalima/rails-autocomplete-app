@@ -1,22 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  def user_name_search
-    if params[:term].present?
-      @users = User.where( "users.name like ?", "%#{params[:term]}%" )
-      render json: @users
-    end
-  end
-
   def user_roles_search
-    #if id.present?
-    #  role_ids = User.find(id).roles.map{ |e| [e.id, e.name] }
-    #else
-      role_ids = Role.all.map{ |e| [e.id, e.name] }
-    #end
-     #render json: role_ids
-     require 'pry'; binding.pry
-     render json: [{id:1,text:'my bug'},{id:2,text:'duplication'}]
+    result = []
+    y = {}
+    if params[:id].present?
+      #role_ids = User.find(params[:id]).roles.map{ |e| [e.id, e.name] }
+      User.find(params[:id]).roles.each { |r| y[:id] = r.id; y[:text] = r.name; result << y; y = {} }
+    else
+      Role.all.each { |r| y[:id] = r.id; y[:text] = r.name; result << y; y = {} }
+      #Role.all.where( "id = ?",  params[:id] ).each { |r| y[:id] = r.id; y[:text] = r.name; result << y; y = {} }
+    end
+    #render json: [{id:1,text:'secretary'},{id:2,text:'key_user'}]
+    render json: result
   end
 
   # GET /users
@@ -46,7 +42,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #@user = User.new(user_params).merge(params[ :role_ids ][0].split(","))
     @user = User.new( user_params.merge( "role_ids" => params[ :role_ids ][0].split(",") ) )
     respond_to do |format|
       if @user.save
@@ -63,7 +58,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      #require 'pry'; binding.pry
+      if params[:role_ids][0].include? ","
+        p = params[:role_ids][0].slice(params[:role_ids][0].index(",")+1..-1)
+        p = p.split(",")
+      else
+        p = []
+      end
+      if @user.update(user_params.merge( "role_ids" => p ) )
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
