@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  match 'user_name_search'         , to: 'users#user_name_search', :via => :get
+  #match 'user_name_search'         , to: 'users#user_name_search', :via => :get
   match 'role_name_search'         , to: 'roles#role_name_search', :via => :get
   match 'user_roles_search/(:id)'  , to: 'users#user_roles_search', :via => :get
 
